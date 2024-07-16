@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Complaint</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="file"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button[type="submit"] {
+            background-color: #0052A5; /* Nigerian Green */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Submit Complaint</h1>
+        <form method="post" enctype="multipart/form-data" id="complaint-form">
+            {% csrf_token %}
+            <label for="complaint_type">Complaint Type:</label>
+            <select id="complaint_type" name="complaint_type" required>
+                <option value="" selected disabled>Select complaint type</option>
+                <option value="Accident">Accident</option>
+                <option value="Water Leakage">Water Leakage</option>
+                <option value="Pothole">Potholes</option>
+                <option value="Borehole">Borehole</option>
+                <option value="Broken Facility">Broken Facility</option>
+                <option value="Power outages">Power outages</option>
+                <option value="Poor road conditions">Poor road conditions</option>
+                <option value="Traffic congestion">Traffic congestion</option>
+                <option value="Inadequate public transportation">Inadequate public transportation</option>
+                <option value="Water supply issues">Water supply issues</option>
+                <option value="Inconsistent waste collection">Inconsistent waste collection</option>
+                <option value="Poor healthcare services">Poor healthcare services</option>
+                <option value="Lack of security">Lack of security</option>
+                <option value="Corruption in public offices">Corruption in public offices</option>
+                <option value="Unemployment">Unemployment</option>
+                <option value="Poor educational facilities">Poor educational facilities</option>
+                <option value="Noise pollution">Noise pollution</option>
+                <option value="Air pollution">Air pollution</option>
+                <option value="Poor drainage systems">Poor drainage systems</option>
+                <option value="Inadequate housing">Inadequate housing</option>
+                <option value="Illegal land grabbing">Illegal land grabbing</option>
+                <option value="Bureaucratic delays">Bureaucratic delays</option>
+                <option value="Harassment by law enforcement">Harassment by law enforcement</option>
+                <option value="Poor internet connectivity">Poor internet connectivity</option>
+                <option value="Inconsistent postal services">Inconsistent postal services</option>
+                <option value="High cost of living">High cost of living</option>
+                <option value="Environmental degradation">Environmental degradation</option>
+                <option value="Lack of public toilets">Lack of public toilets</option>
+                <option value="Poor street lighting">Poor street lighting</option>
+                <option value="Overcrowded public spaces">Overcrowded public spaces</option>
+                <option value="Inadequate social services">Inadequate social services</option>
+                <option value="Poor sanitation in markets">Poor sanitation in markets</option>
+                <option value="High crime rates">High crime rates</option>
+                <option value="Flooding">Flooding</option>
+                <option value="Poor customer service in public offices">Poor customer service in public offices</option>
+                <option value="Bribery demands">Bribery demands</option>
+                <option value="Unregulated street trading">Unregulated street trading</option>
+                <option value="Poor maintenance of public facilities">Poor maintenance of public facilities</option>
+                <option value="Lack of recreational spaces">Lack of recreational spaces</option>
+                <option value="Stray animals">Stray animals</option>
+                <option value="Poor urban planning">Poor urban planning</option>
+                <option value="Noise from generators">Noise from generators</option>
+                <option value="Delayed justice system">Delayed justice system</option>
+                <option value="High fuel prices">High fuel prices</option>
+                <option value="Poor telecom services">Poor telecom services</option>
+                <option value="Inconsistent public transport schedules">Inconsistent public transport schedules</option>
+                <option value="Unsafe building structures">Unsafe building structures</option>
+                <option value="Poorly maintained parks">Poorly maintained parks</option>
+                <option value="Inadequate fire service response">Inadequate fire service response</option>
+            </select>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+            <label for="photo">Photo:</label>
+            <input type="file" id="photo" name="photo" accept="image/*">
+            <input type="hidden" name="latitude">
+            <input type="hidden" name="longitude">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    document.querySelector('[name="latitude"]').value = position.coords.latitude;
+                    document.querySelector('[name="longitude"]').value = position.coords.longitude;
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        });
+    </script>
+</body>
+</html>
